@@ -32,6 +32,8 @@ MyTable.setup({
 });
 ```
 
+If desired, pass `accessLevel`; this defaults to `'read-write'` but can be set to `'read-only'`.
+
 Testing
 -------
 
