@@ -1,16 +1,16 @@
 const assert = require('assert');
 const {sasCredentials} = require('..');
 const nock = require('nock');
-var url  = require('url');
-const urls = require('taskcluster-lib-urls');
+const url  = require('url');
+const libUrls = require('taskcluster-lib-urls');
 
 suite('index_test.js', function() {
   let scope;
 
   const mockAzureTableSAS = (accessLevel) => {
-    const rootUrl = urls.testRootUrl();
+    const rootUrl = libUrls.testRootUrl();
     const azureTableSASPath = url.parse(
-      urls.api(rootUrl, 'auth', 'v1', `/azure/myaccount/table/mytable/${accessLevel}`)
+      libUrls.api(rootUrl, 'auth', 'v1', `/azure/myaccount/table/mytable/${accessLevel}`)
     ).pathname;
     scope = nock(rootUrl, {encodedQueryParams:true, allowUnmocked: true})
       .get(azureTableSASPath)
@@ -34,7 +34,7 @@ suite('index_test.js', function() {
     const creds = sasCredentials({
       accountId: 'myaccount',
       tableName: 'mytable',
-      rootUrl: urls.testRootUrl(),
+      rootUrl: libUrls.testRootUrl(),
       credentials: {},
     });
 
@@ -48,7 +48,7 @@ suite('index_test.js', function() {
     const creds = sasCredentials({
       accountId: 'myaccount',
       tableName: 'mytable',
-      rootUrl: urls.testRootUrl(),
+      rootUrl: libUrls.testRootUrl(),
       credentials: {},
       accessLevel: 'read-only',
     });
